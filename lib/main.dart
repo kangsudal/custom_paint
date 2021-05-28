@@ -24,22 +24,28 @@ class _DrawingBoardState extends State<DrawingBoard> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           color: Colors.grey,
+          padding: EdgeInsets.all(10),
           child: Row(
             children: [
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 3,
-                    )),
-              )
+              buildColorChoose()
             ],
           ),
         ),
       ),
     );
+  }
+
+  Container buildColorChoose() {
+    return Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 3,
+                  )),
+            );
   }
 }
