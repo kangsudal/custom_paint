@@ -18,6 +18,15 @@ class DrawingBoard extends StatefulWidget {
 }
 
 class _DrawingBoardState extends State<DrawingBoard> {
+  List<Color> colors = [
+    Colors.pink,
+    Colors.red,
+    Colors.black,
+    Colors.yellow,
+    Colors.blue,
+    Colors.deepPurple,
+    Colors.green,
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,21 +35,19 @@ class _DrawingBoardState extends State<DrawingBoard> {
           color: Colors.grey,
           padding: EdgeInsets.all(10),
           child: Row(
-            children: [
-              buildColorChoose()
-            ],
+            children: List.generate(colors.length, (index) => buildColorChoose(colors[index])),
           ),
         ),
       ),
     );
   }
 
-  Container buildColorChoose() {
+  Container buildColorChoose(Color color) {
     return Container(
               height: 40,
               width: 40,
               decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: color,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: Colors.white,
