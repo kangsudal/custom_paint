@@ -18,6 +18,7 @@ class DrawingBoard extends StatefulWidget {
 }
 
 class _DrawingBoardState extends State<DrawingBoard> {
+  Color selectedColor = Colors.black;
   List<Color> colors = [
     Colors.pink,
     Colors.red,
@@ -35,24 +36,37 @@ class _DrawingBoardState extends State<DrawingBoard> {
           color: Colors.grey,
           padding: EdgeInsets.all(10),
           child: Row(
-            children: List.generate(colors.length, (index) => buildColorChoose(colors[index])),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+                colors.length, (index) => buildColorChoose(colors[index])),
           ),
         ),
       ),
     );
   }
 
-  Container buildColorChoose(Color color) {
-    return Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 3,
-                  )),
-            );
+  Widget buildColorChoose(Color color) {
+    bool isSelected = selectedColor == color;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedColor = color;
+        });
+      },
+      child: Container(
+        height: isSelected ? 47 : 40,
+        width: isSelected ? 47 : 40,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+          border: isSelected
+              ? Border.all(
+                  color: Colors.white,
+                  width: 3,
+                )
+              : null,
+        ),
+      ),
+    );
   }
 }
