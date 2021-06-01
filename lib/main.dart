@@ -19,6 +19,8 @@ class DrawingBoard extends StatefulWidget {
 
 class _DrawingBoardState extends State<DrawingBoard> {
   Color selectedColor = Colors.black;
+  double strokeWidth = 5;
+  List<DrawingPoint> drawingPoints = [];
   List<Color> colors = [
     Colors.pink,
     Colors.red,
@@ -32,8 +34,41 @@ class _DrawingBoardState extends State<DrawingBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
+        onPanStart: (details) {
+          setState(() {
+            drawingPoints.add(
+              DrawingPoint(
+                details.localPosition,
+                Paint()
+                  ..color = selectedColor
+                  ..isAntiAlias = true
+                  ..strokeWidth = strokeWidth
+                  ..strokeCap = StrokeCap.round,
+              ),
+            );
+          });
+        },
+        onPanUpdate: (details) {
+          setState(() {
+            drawingPoints.add(
+              DrawingPoint(
+                details.localPosition,
+                Paint()
+                  ..color = selectedColor
+                  ..isAntiAlias = true
+                  ..strokeWidth = strokeWidth
+                  ..strokeCap = StrokeCap.round,
+              ),
+            );
+          });
+        },
+        onPanEnd: (details){
+          setState(() {
+            drawingPoints.add(null);
+          });
+        },
         child: CustomPaint(
-          painter: _DrawingPainter(),
+          painter: _DrawingPainter(drawingPoints),
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -80,7 +115,9 @@ class _DrawingBoardState extends State<DrawingBoard> {
   }
 }
 
-class _DrawingPainter extends CustomPainter{
+class _DrawingPainter extends CustomPainter {
+  final List<DrawingPoint> drawingPoints;
+  _DrawingPainter(this.drawingPoints);
   @override
   void paint(Canvas canvas, Size size) {
     // TODO: implement paint
@@ -90,5 +127,11 @@ class _DrawingPainter extends CustomPainter{
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
+}
 
+class DrawingPoint {
+  Offset offset;
+  Paint paint;
+
+  DrawingPoint(this.offset, this.paint);
 }
