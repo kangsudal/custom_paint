@@ -33,7 +33,7 @@ class _DrawingBoardState extends State<DrawingBoard> {
     return Scaffold(
       body: GestureDetector(
         child: CustomPaint(
-          painter: null,
+          painter: _DrawingPainter(),
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -78,4 +78,17 @@ class _DrawingBoardState extends State<DrawingBoard> {
       ),
     );
   }
+}
+
+class _DrawingPainter extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+    // TODO: implement paint
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
 }
