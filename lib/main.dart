@@ -31,6 +31,15 @@ class _DrawingBoardState extends State<DrawingBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: GestureDetector(
+        child: CustomPaint(
+          painter: null,
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
           color: Colors.grey,
