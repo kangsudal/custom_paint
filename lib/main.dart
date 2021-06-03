@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -62,7 +64,7 @@ class _DrawingBoardState extends State<DrawingBoard> {
             );
           });
         },
-        onPanEnd: (details){
+        onPanEnd: (details) {
           setState(() {
             drawingPoints.add(null);
           });
@@ -118,9 +120,20 @@ class _DrawingBoardState extends State<DrawingBoard> {
 class _DrawingPainter extends CustomPainter {
   final List<DrawingPoint> drawingPoints;
   _DrawingPainter(this.drawingPoints);
+  List<Offset> offsetsList = [];
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
+    for (int i = 0; i < drawingPoints.length; i++) {
+      if (drawingPoints[i] != null && drawingPoints[i + 1] != null) {
+        canvas.drawLine(drawingPoints[i].offset, drawingPoints[i + 1].offset,
+            drawingPoints[i].paint); //선을그림. 시작점좌표,끝점,paint설정(선 색,굵기)
+      } else if (drawingPoints[i] != null && drawingPoints[i + 1] == null) {
+        offsetsList.clear();
+        offsetsList.add(drawingPoints[i].offset);
+        canvas.drawPoints(
+            PointMode.points, offsetsList, drawingPoints[i].paint); //점을 그릴때 사용
+      }
+    }
   }
 
   @override
