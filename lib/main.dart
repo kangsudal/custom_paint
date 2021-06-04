@@ -84,6 +84,12 @@ class _DrawingBoardState extends State<DrawingBoard> {
             right: 30,
             child: Row(
               children: [
+                Slider(
+                  min: 0,
+                  max: 40,
+                  value: strokeWidth,
+                  onChanged: (val) => setState(() => strokeWidth = val),
+                ),
                 ElevatedButton.icon(
                   onPressed: () => setState(() => drawingPoints = []),
                   icon: Icon(Icons.clear),
